@@ -1,5 +1,6 @@
 import java.lang.Comparable;
 import java.lang.IllegalArgumentException;
+import java.math.BigDecimal;
 
 public class Operator implements Comparable<Operator> {
     private char value;
@@ -31,6 +32,25 @@ public class Operator implements Comparable<Operator> {
     // returns true iff String s consists of one operator
     public static boolean isOperator(String s) {
         return s.equals("+") || s.equals("-") || s.equals("(") || s.equals(")") || s.equals("*") || s.equals("/");
+    }
+
+    public Operand apply(Operand op1, Operand op2) {
+        BigDecimal newOperandValue = BigDecimal.valueOf(0);
+        switch (value) {
+            case '+':
+                newOperandValue = op1.getValue().add(op2.getValue());
+                break;
+            case '-':
+                newOperandValue = op1.getValue().subtract(op2.getValue());
+                break;
+            case '*':
+                newOperandValue = op1.getValue().multiply(op2.getValue());
+                break;
+            case '/':
+                newOperandValue = op1.getValue().divide(op2.getValue());
+                break;
+        }
+        return new Operand(newOperandValue);
     }
 
     // unit testing
