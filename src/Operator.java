@@ -28,6 +28,11 @@ public class Operator implements Comparable<Operator> {
         return priority;
     }
 
+    // returns true iff String s consists of one operator
+    public static boolean isOperator(String s) {
+        return s.equals("+") || s.equals("-") || s.equals("(") || s.equals(")") || s.equals("*") || s.equals("/");
+    }
+
     // unit testing
     public static void main(String[] args) {
         Operator op1 = new Operator('+');
