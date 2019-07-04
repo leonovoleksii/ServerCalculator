@@ -30,6 +30,7 @@ public class InfixToPostfixConverter {
     // converts the expression from infix to postfix form
     public void convert() {
         Stack<Operator> operators = new Stack<>();
+        curInx = 0;
         while (curInx < expression.length()) {
             if (expression.charAt(curInx) >= '0' && expression.charAt(curInx) <= '9' || expression.charAt(curInx) == '.') {
                 Operand operand = parseOperand(curInx);
