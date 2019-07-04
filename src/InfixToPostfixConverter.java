@@ -4,7 +4,7 @@ import java.util.LinkedList;
 public class InfixToPostfixConverter {
     private String expression;
     private int curInx; // pointer on the character in the expression
-    private LinkedList<String> postfix;
+    private LinkedList<String> postfix; // linked list with operand and operators in postfix form
 
     public InfixToPostfixConverter(String expression) {
         this.expression = expression;
@@ -27,6 +27,7 @@ public class InfixToPostfixConverter {
         return new Operator(expression.charAt(curInx++));
     }
 
+    // converts the expression from infix to postfix form
     public void convert() {
         Stack<Operator> operators = new Stack<>();
         while (curInx < expression.length()) {
@@ -62,6 +63,7 @@ public class InfixToPostfixConverter {
         return postfix;
     }
 
+    // unit testing
     public static void main(String[] args) {
         InfixToPostfixConverter converter = new InfixToPostfixConverter("1+2*3");
         System.out.println(converter.getInfixExpression());
