@@ -11,6 +11,12 @@ public class Operand {
         this.value = new BigDecimal(value);
     }
 
+    // initializes the Operand with the value that is stored in BigDecimal value
+    public Operand(BigDecimal value) {
+        if (value == null) throw new IllegalArgumentException("String with a value can't be empty");
+        this.value = value;
+    }
+
     // returns the value of the Operand
     public BigDecimal getValue() {
         return value;
