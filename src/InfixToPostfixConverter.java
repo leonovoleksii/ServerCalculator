@@ -1,9 +1,14 @@
+import java.util.Stack;
+import java.util.LinkedList;
+
 public class InfixToPostfixConverter {
     private String expression;
     private int curInx; // pointer on the character in the expression
+    private LinkedList<String> postfix;
 
     public InfixToPostfixConverter(String expression) {
         this.expression = expression;
+        postfix = new LinkedList<>();
         curInx = 0;
     }
 
@@ -23,27 +28,46 @@ public class InfixToPostfixConverter {
     }
 
     public void convert() {
-        String postfix = "";
+        Stack<Operator> operators = new Stack<>();
         while (curInx < expression.length()) {
             if (expression.charAt(curInx) >= '0' && expression.charAt(curInx) <= '9' || expression.charAt(curInx) == '.') {
                 Operand operand = parseOperand(curInx);
-                postfix = postfix.concat(operand.getValue().toString());
+                postfix.add(operand.getValue().toString());
             } else {
                 Operator operator = parseOperator();
-                postfix = postfix.concat(Character.toString(operator.getValue()));
+                if (operator.getValue() == '(') {
+                    operators.push(operator);
+                } else if (operator.getValue() == ')') {
+                    while (!operators.empty() && operators.peek().getValue() != '(') {
+                        postfix.add(Character.toString(operators.pop().getValue()));
+                    }
+                } else {
+                    while (!operators.empty() && operator.compareTo(operators.peek()) <= 0) {
+                        postfix.add(Character.toString(operators.pop().getValue()));
+                    }
+                    operators.push(operator);
+                }
             }
         }
-        expression = postfix;
+        while (!operators.empty()) {
+            postfix.add(Character.toString(operators.pop().getValue()));
+        }
     }
 
-    public String getExpression() {
+    public String getInfixExpression() {
         return expression;
     }
 
+    public LinkedList<String> getPostfixExpression() {
+        return postfix;
+    }
+
     public static void main(String[] args) {
-        InfixToPostfixConverter converter = new InfixToPostfixConverter("123+234");
-        System.out.println(converter.getExpression());
+        InfixToPostfixConverter converter = new InfixToPostfixConverter("1+2*3");
+        System.out.println(converter.getInfixExpression());
         converter.convert();
-        System.out.println(converter.getExpression());
+        for (String s : converter.getPostfixExpression()) {
+            System.out.print(s + " ");
+        }
     }
 }
