@@ -16,8 +16,8 @@ public class Calculator {
             converter.convert();
             for (String s : converter.getPostfixExpression()) {
                 if (Operator.isOperator(s)) {
-                    Operand first = operands.pop();
                     Operand second = operands.pop();
+                    Operand first = operands.pop();
                     operands.push((new Operator(s)).apply(first, second));
                 } else {
                     operands.push(new Operand(s));
