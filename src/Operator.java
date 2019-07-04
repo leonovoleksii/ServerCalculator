@@ -11,7 +11,7 @@ public class Operator implements Comparable<Operator> {
         this.value = value;
         if (value == '+' || value == '-') priority = 0;
         else if (value == '*' || value == '/' || value == '%') priority = 1;
-        else if (value == '(' || value == ')') priority = 2;
+        else if (value == '(' || value == ')') priority = -1;
         else throw new IllegalArgumentException("Wrong operator");
     }
 

@@ -18,7 +18,7 @@ public class InfixToPostfixConverter {
             currChar = expression.charAt(curInx);
             curInx++;
         } while (curInx < expression.length() && (currChar >= '0' && currChar <= '9' || currChar == '.'));
-        curInx = curInx == expression.length() ? curInx : curInx - 1;
+        curInx = curInx == expression.length() && currChar >= '0' && currChar <= '9' ? curInx : curInx - 1;
 
         return new Operand(expression.substring(begin, curInx));
     }
@@ -32,6 +32,10 @@ public class InfixToPostfixConverter {
         Stack<Operator> operators = new Stack<>();
         curInx = 0;
         while (curInx < expression.length()) {
+/*            for (Operator o : operators) {
+                System.out.print(o.getValue() + " ");
+            }
+            System.out.println();*/
             if (expression.charAt(curInx) >= '0' && expression.charAt(curInx) <= '9' || expression.charAt(curInx) == '.') {
                 Operand operand = parseOperand(curInx);
                 postfix.add(operand.getValue().toString());
@@ -42,6 +46,9 @@ public class InfixToPostfixConverter {
                 } else if (operator.getValue() == ')') {
                     while (!operators.empty() && operators.peek().getValue() != '(') {
                         postfix.add(Character.toString(operators.pop().getValue()));
+                    }
+                    if (operators.peek().getValue() == '(') {
+                        operators.pop();
                     }
                 } else {
                     while (!operators.empty() && operator.compareTo(operators.peek()) <= 0) {
@@ -66,7 +73,7 @@ public class InfixToPostfixConverter {
 
     // unit testing
     public static void main(String[] args) {
-        InfixToPostfixConverter converter = new InfixToPostfixConverter("1+2*3");
+        InfixToPostfixConverter converter = new InfixToPostfixConverter("2+(2*2)");
         System.out.println(converter.getInfixExpression());
         converter.convert();
         for (String s : converter.getPostfixExpression()) {
