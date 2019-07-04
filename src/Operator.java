@@ -14,6 +14,15 @@ public class Operator implements Comparable<Operator> {
         else throw new IllegalArgumentException("Wrong operator");
     }
 
+    public Operator(String value) {
+        if (value.length() != 1) throw new IllegalArgumentException("Wrong operator");
+        this.value = value.charAt(0);
+        if (this.value == '+' || this.value == '-') priority = 0;
+        else if (this.value == '*' || this.value == '/' || this.value == '%') priority = 1;
+        else if (this.value == '(' || this.value == ')') priority = 2;
+        this.value = value.charAt(0);
+    }
+
     @Override
     public int compareTo(Operator op) {
         if (this.priority < op.priority) return -1;
