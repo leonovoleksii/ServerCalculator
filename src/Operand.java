@@ -12,7 +12,7 @@ public class Operand {
     }
 
     // returns the value of the Operand
-    public BigDecimal value() {
+    public BigDecimal getValue() {
         return value;
     }
 
@@ -20,6 +20,6 @@ public class Operand {
     public static void main(String[] args) {
         String expr = new String(".3");
         Operand op = new Operand(expr);
-        System.out.println(op.value());
+        System.out.println(op.getValue());
     }
 }
