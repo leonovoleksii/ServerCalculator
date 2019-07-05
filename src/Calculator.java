@@ -76,6 +76,16 @@ public class Calculator {
         return checkOps(expr) && checkParen(expr);
     }
 
+    // removes spaces from expression
+    private static String removeSpaces(String expression) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < expression.length(); i++) {
+            if (!Character.isSpaceChar(expression.charAt(i)))
+                sb.append(expression.charAt(i));
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String expression;
