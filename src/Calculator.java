@@ -44,8 +44,33 @@ public class Calculator {
         return true;
     }
 
+    private static boolean checkParen(String expr) {
+        Stack<Character> parentheses = new Stack<>();
+        for (int i = 0; i < expr.length(); i++) {
+            char cur = expr.charAt(i);
+            if (cur == '(' || cur == '[' || cur == '{') {
+                parentheses.push(cur);
+            } else if (cur == ')' || cur == ']' || cur == '}') {
+                if (parentheses.empty()) return false;
+                char top = parentheses.pop();
+                switch (cur) {
+                    case ')':
+                        if (top != '(') return false;
+                        break;
+                    case ']':
+                        if (top != '[') return false;
+                        break;
+                    case '}':
+                        if (top != '{') return false;
+                        break;
+                }
+            }
+        }
+        return parentheses.empty();
+    }
+
     private static boolean checkValidity(String expr) {
-        return checkOps(expr);
+        return checkOps(expr) && checkParen(expr);
     }
 
     public static void main(String[] args) {
