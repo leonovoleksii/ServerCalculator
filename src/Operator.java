@@ -43,6 +43,11 @@ public class Operator implements Comparable<Operator> {
         return s.equals("+") || s.equals("-") || s.equals("(") || s.equals(")") || s.equals("*") || s.equals("/");
     }
 
+    // returns true iff char c is operator
+    public static boolean isOperator(char c) {
+        return c == '+' || c == '-' || c == '(' || c == ')' || c == '*' || c == '/';
+    }
+
     public Operand apply(Operand op1, Operand op2) {
         BigDecimal newOperandValue = BigDecimal.valueOf(0);
         switch (value) {
