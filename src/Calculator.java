@@ -9,6 +9,7 @@ public class Calculator {
         return c >= '0' && c <= '9' || c == '.';
     }
 
+    // returns true iff operands and operators in the expression are valid
     private static boolean checkOps(String expr) {
         // build a string without parentheses
         StringBuilder sb = new StringBuilder();
@@ -44,6 +45,7 @@ public class Calculator {
         return true;
     }
 
+    // returns true iff the sequence of parentheses in the expression is right
     private static boolean checkParen(String expr) {
         Stack<Character> parentheses = new Stack<>();
         for (int i = 0; i < expr.length(); i++) {
@@ -69,6 +71,7 @@ public class Calculator {
         return parentheses.empty();
     }
 
+    // returns true iff the expression is valid
     private static boolean checkValidity(String expr) {
         return checkOps(expr) && checkParen(expr);
     }
