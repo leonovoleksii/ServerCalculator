@@ -31,11 +31,17 @@ public class Calculator {
                 while (end < exprWithoutParen.length() && isOperandSym(exprWithoutParen.charAt(end))) {
                     end++;
                 }
-                if (!Operand.isOperand(exprWithoutParen.substring(begin, end))) return false;
+                if (!Operand.isOperand(exprWithoutParen.substring(begin, end))) {
+                    System.err.println("Wrong operand at symbol " + begin);
+                    System.out.println();
+                    return false;
+                }
                 inx = end;
                 turn = OPERATOR;
             } else {
                 if (!Operator.isOperator(exprWithoutParen.charAt(inx))) {
+                    System.err.println("Wrong operator at symbol " + inx);
+                    System.out.println();
                     return false;
                 }
                 inx++;
@@ -53,20 +59,40 @@ public class Calculator {
             if (cur == '(' || cur == '[' || cur == '{') {
                 parentheses.push(cur);
             } else if (cur == ')' || cur == ']' || cur == '}') {
-                if (parentheses.empty()) return false;
+                if (parentheses.empty())  {
+                    System.err.println("Wrong sequence of parentheses");
+                    System.out.println();
+                    return false;
+                }
                 char top = parentheses.pop();
                 switch (cur) {
                     case ')':
-                        if (top != '(') return false;
+                        if (top != '(') {
+                            System.err.println("Wrong sequence of parentheses");
+                            System.out.println();
+                            return false;
+                        }
                         break;
                     case ']':
-                        if (top != '[') return false;
+                        if (top != '[') {
+                            System.err.println("Wrong sequence of parentheses");
+                            System.out.println();
+                            return false;
+                        }
                         break;
                     case '}':
-                        if (top != '{') return false;
+                        if (top != '{') {
+                            System.err.println("Wrong sequence of parentheses");
+                            System.out.println();
+                            return false;
+                        }
                         break;
                 }
             }
+        }
+        if (!parentheses.empty()) {
+            System.err.println("Wrong sequence of parentheses");
+            System.out.println();
         }
         return parentheses.empty();
     }
@@ -95,7 +121,6 @@ public class Calculator {
             expression = sc.next();
             if (expression.equals("exit")) break;
             if (!checkValidity(expression)) {
-                System.out.println("Try again");
                 continue;
             }
             converter = new InfixToPostfixConverter(expression);
