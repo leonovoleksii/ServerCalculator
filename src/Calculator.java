@@ -118,7 +118,7 @@ public class Calculator {
         Stack<Operand> operands = new Stack<>();
         while (true) {
             System.out.println("Print the expression you want to calculate (print exit or ^C to exit):");
-            expression = sc.next();
+            expression = removeSpaces(sc.next());
             if (expression.equals("exit")) break;
             if (!checkValidity(expression)) {
                 continue;
