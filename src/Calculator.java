@@ -3,12 +3,10 @@ import java.math.BigDecimal;
 import java.util.Stack;
 
 public class Calculator {
-    private BufferedReader reader;
     private BufferedWriter writer;
     private InfixToPostfixConverter converter;
 
-    public Calculator(InputStreamReader in, OutputStreamWriter out) {
-        reader = new BufferedReader(in);
+    public Calculator(OutputStreamWriter out) {
         writer = new BufferedWriter(out);
     }
 
@@ -147,7 +145,7 @@ public class Calculator {
 
     // unit testing
     public static void main(String[] args) throws IOException {
-        Calculator calculator = new Calculator(new InputStreamReader(System.in), new OutputStreamWriter(System.out));
+        Calculator calculator = new Calculator(new OutputStreamWriter(System.out));
         calculator.calculate("2 + 2");
     }
 }
