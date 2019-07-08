@@ -23,13 +23,17 @@ public class Server {
                     out = new BufferedWriter(osw);
                     calculator = new Calculator(osw);
                     String request;
-                    do {
-                        out.flush();
+                    while (true) {
                         request = in.readLine();
                         System.out.println("Client requested " + request + " to be calculated");
+                        if (request.equals("quit")) {
+                            out.write("Bye!");
+                            out.flush();
+                            break;
+                        }
                         calculator.calculate(request);
                         System.out.println("Server calculated the request and returned the result");
-                    } while (!request.equals("quit"));
+                    }
                 } finally {
                     System.out.println("Client disconnected");
                     clientSocket.close();
