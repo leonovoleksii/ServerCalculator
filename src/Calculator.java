@@ -1,7 +1,9 @@
-import java.util.Scanner;
+import java.io.*;
 import java.util.Stack;
 
 public class Calculator {
+    private static BufferedReader reader;
+    private static BufferedWriter writer;
     private static InfixToPostfixConverter converter;
 
     // returns true iff char c can be used in operand notation
@@ -10,7 +12,7 @@ public class Calculator {
     }
 
     // returns true iff operands and operators in the expression are valid
-    private static boolean checkOps(String expr) {
+    private static boolean checkOps(String expr) throws IOException {
         // build a string without parentheses
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < expr.length(); i++) {
@@ -32,16 +34,16 @@ public class Calculator {
                     end++;
                 }
                 if (!Operand.isOperand(exprWithoutParen.substring(begin, end))) {
-                    System.err.println("Wrong operand at symbol " + begin);
-                    System.out.println();
+                    writer.write("Wrong operand at symbol " + inx + "\n");
+                    writer.flush();
                     return false;
                 }
                 inx = end;
                 turn = OPERATOR;
             } else {
                 if (!Operator.isOperator(exprWithoutParen.charAt(inx))) {
-                    System.err.println("Wrong operator at symbol " + inx);
-                    System.out.println();
+                    writer.write("Wrong operator at symbol " + inx + "\n");
+                    writer.flush();
                     return false;
                 }
                 inx++;
@@ -52,7 +54,7 @@ public class Calculator {
     }
 
     // returns true iff the sequence of parentheses in the expression is right
-    private static boolean checkParen(String expr) {
+    private static boolean checkParen(String expr) throws IOException {
         Stack<Character> parentheses = new Stack<>();
         for (int i = 0; i < expr.length(); i++) {
             char cur = expr.charAt(i);
@@ -60,30 +62,30 @@ public class Calculator {
                 parentheses.push(cur);
             } else if (cur == ')' || cur == ']' || cur == '}') {
                 if (parentheses.empty())  {
-                    System.err.println("Wrong sequence of parentheses");
-                    System.out.println();
+                    writer.write("Wrong sequence of parentheses\n");
+                    writer.flush();
                     return false;
                 }
                 char top = parentheses.pop();
                 switch (cur) {
                     case ')':
                         if (top != '(') {
-                            System.err.println("Wrong sequence of parentheses");
-                            System.out.println();
+                            writer.write("Wrong sequence of parentheses\n");
+                            writer.flush();
                             return false;
                         }
                         break;
                     case ']':
                         if (top != '[') {
-                            System.err.println("Wrong sequence of parentheses");
-                            System.out.println();
+                            writer.write("Wrong sequence of parentheses\n");
+                            writer.flush();
                             return false;
                         }
                         break;
                     case '}':
                         if (top != '{') {
-                            System.err.println("Wrong sequence of parentheses");
-                            System.out.println();
+                            writer.write("Wrong sequence of parentheses\n");
+                            writer.flush();
                             return false;
                         }
                         break;
@@ -91,14 +93,14 @@ public class Calculator {
             }
         }
         if (!parentheses.empty()) {
-            System.err.println("Wrong sequence of parentheses");
-            System.out.println();
+            writer.write("Wrong sequence of parentheses\n");
+            writer.flush();
         }
         return parentheses.empty();
     }
 
     // returns true iff the expression is valid
-    private static boolean checkValidity(String expr) {
+    private static boolean checkValidity(String expr) throws IOException {
         return checkOps(expr) && checkParen(expr);
     }
 
@@ -112,13 +114,15 @@ public class Calculator {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        reader = new BufferedReader(new InputStreamReader(System.in));
+        writer = new BufferedWriter(new OutputStreamWriter(System.out));
         String expression;
         Stack<Operand> operands = new Stack<>();
         while (true) {
-            System.out.println("Print the expression you want to calculate (print exit or ^C to exit):");
-            expression = removeSpaces(sc.nextLine());
+            writer.write("Print the expression you want to calculate (print exit or ^C to exit):\n");
+            writer.flush();
+            expression = removeSpaces(reader.readLine());
             if (expression.equals("exit")) break;
             if (!checkValidity(expression)) {
                 continue;
@@ -134,7 +138,8 @@ public class Calculator {
                     operands.push(new Operand(s));
                 }
             }
-            System.out.println(operands.pop().getValue());
+            writer.write(operands.pop().getValue().toString() + "\n");
+            writer.flush();
         }
     }
 }
