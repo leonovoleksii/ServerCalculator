@@ -2,9 +2,14 @@ import java.io.*;
 import java.util.Stack;
 
 public class Calculator {
-    private static BufferedReader reader;
-    private static BufferedWriter writer;
-    private static InfixToPostfixConverter converter;
+    private BufferedReader reader;
+    private BufferedWriter writer;
+    private InfixToPostfixConverter converter;
+
+    public Calculator(InputStreamReader in, OutputStreamWriter out) {
+        reader = new BufferedReader(in);
+        writer = new BufferedWriter(out);
+    }
 
     // returns true iff char c can be used in operand notation
     private static boolean isOperandSym(char c) {
@@ -113,6 +118,7 @@ public class Calculator {
         }
         return sb.toString();
     }
+
 
     public static void main(String[] args) throws IOException {
         reader = new BufferedReader(new InputStreamReader(System.in));
