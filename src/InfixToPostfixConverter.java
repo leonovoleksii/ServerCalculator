@@ -32,10 +32,6 @@ public class InfixToPostfixConverter {
         Stack<Operator> operators = new Stack<>();
         curInx = 0;
         while (curInx < expression.length()) {
-/*            for (Operator o : operators) {
-                System.out.print(o.getValue() + " ");
-            }
-            System.out.println();*/
             if (expression.charAt(curInx) >= '0' && expression.charAt(curInx) <= '9' || expression.charAt(curInx) == '.') {
                 Operand operand = parseOperand(curInx);
                 postfix.add(operand.getValue().toString());

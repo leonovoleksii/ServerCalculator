@@ -13,6 +13,8 @@ public class Calculator {
         Stack<Operand> operands = new Stack<>();
         expression = removeSpaces(expression);
         if (!checkValidity(expression)) {
+            writer.write("Incorrect sequence of parentheses\n");
+            writer.flush();
             return;
         }
         converter = new InfixToPostfixConverter(expression);
@@ -87,7 +89,9 @@ public class Calculator {
         for (int i = 0; i < expr.length(); i++) {
             if (expr.charAt(i) == '(') cnt++;
             if (expr.charAt(i) == ')') cnt--;
-            if (cnt < 0) return false;
+            if (cnt < 0) {
+                return false;
+            }
         }
         return cnt == 0;
     }
@@ -110,6 +114,6 @@ public class Calculator {
     // unit testing
     public static void main(String[] args) throws IOException {
         Calculator calculator = new Calculator(new OutputStreamWriter(System.out));
-        calculator.calculate("(2+2)*2");
+        calculator.calculate("(");
     }
 }
