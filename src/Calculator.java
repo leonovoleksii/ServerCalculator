@@ -13,7 +13,7 @@ public class Calculator {
         Stack<Operand> operands = new Stack<>();
         expression = removeSpaces(expression);
         if (!checkValidity(expression)) {
-            writer.write("Incorrect sequence of parentheses\n");
+            writer.write("Incorrect expression\n");
             writer.flush();
             return;
         }
