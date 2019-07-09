@@ -1,5 +1,4 @@
 import java.io.*;
-import java.math.BigDecimal;
 import java.util.Stack;
 
 public class Calculator {
@@ -146,6 +145,6 @@ public class Calculator {
     // unit testing
     public static void main(String[] args) throws IOException {
         Calculator calculator = new Calculator(new OutputStreamWriter(System.out));
-        calculator.calculate("2 + 2");
+        calculator.calculate("2/3");
     }
 }

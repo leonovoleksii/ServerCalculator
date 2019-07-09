@@ -49,19 +49,19 @@ public class Operator implements Comparable<Operator> {
     }
 
     public Operand apply(Operand op1, Operand op2) {
-        BigDecimal newOperandValue = BigDecimal.valueOf(0);
+        double newOperandValue = 0;
         switch (value) {
             case '+':
-                newOperandValue = op1.getValue().add(op2.getValue());
+                newOperandValue = op1.getValue() + (op2.getValue());
                 break;
             case '-':
-                newOperandValue = op1.getValue().subtract(op2.getValue());
+                newOperandValue = op1.getValue() - (op2.getValue());
                 break;
             case '*':
-                newOperandValue = op1.getValue().multiply(op2.getValue());
+                newOperandValue = op1.getValue() * (op2.getValue());
                 break;
             case '/':
-                newOperandValue = op1.getValue().divide(op2.getValue());
+                newOperandValue = op1.getValue() / (op2.getValue());
                 break;
         }
         return new Operand(newOperandValue);
