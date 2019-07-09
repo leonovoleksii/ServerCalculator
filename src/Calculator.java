@@ -83,48 +83,13 @@ public class Calculator {
 
     // returns true iff the sequence of parentheses in the expression is right
     private boolean checkParen(String expr) throws IOException {
-        Stack<Character> parentheses = new Stack<>();
+        int cnt = 0;
         for (int i = 0; i < expr.length(); i++) {
-            char cur = expr.charAt(i);
-            if (cur == '(' || cur == '[' || cur == '{') {
-                parentheses.push(cur);
-            } else if (cur == ')' || cur == ']' || cur == '}') {
-                if (parentheses.empty())  {
-                    writer.write("Wrong sequence of parentheses\n");
-                    writer.flush();
-                    return false;
-                }
-                char top = parentheses.pop();
-                switch (cur) {
-                    case ')':
-                        if (top != '(') {
-                            writer.write("Wrong sequence of parentheses\n");
-                            writer.flush();
-                            return false;
-                        }
-                        break;
-                    case ']':
-                        if (top != '[') {
-                            writer.write("Wrong sequence of parentheses\n");
-                            writer.flush();
-                            return false;
-                        }
-                        break;
-                    case '}':
-                        if (top != '{') {
-                            writer.write("Wrong sequence of parentheses\n");
-                            writer.flush();
-                            return false;
-                        }
-                        break;
-                }
-            }
+            if (expr.charAt(i) == '(') cnt++;
+            if (expr.charAt(i) == ')') cnt--;
+            if (cnt < 0) return false;
         }
-        if (!parentheses.empty()) {
-            writer.write("Wrong sequence of parentheses\n");
-            writer.flush();
-        }
-        return parentheses.empty();
+        return cnt == 0;
     }
 
     // returns true iff the expression is valid
@@ -145,6 +110,6 @@ public class Calculator {
     // unit testing
     public static void main(String[] args) throws IOException {
         Calculator calculator = new Calculator(new OutputStreamWriter(System.out));
-        calculator.calculate("2/3");
+        calculator.calculate("(2+2)*2");
     }
 }
