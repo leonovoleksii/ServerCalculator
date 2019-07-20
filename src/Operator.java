@@ -37,12 +37,12 @@ class Operator implements Comparable<Operator> {
 
     // returns true iff String s consists of one operator
     public static boolean isOperator(String s) {
-        return s.equals("+") || s.equals("-") || s.equals("(") || s.equals(")") || s.equals("*") || s.equals("/");
+        return s.equals("+") || s.equals("-") || s.equals("(") || s.equals(")") || s.equals("*") || s.equals("/") || s.equals("%");
     }
 
     // returns true iff char c is operator
     public static boolean isOperator(char c) {
-        return c == '+' || c == '-' || c == '(' || c == ')' || c == '*' || c == '/';
+        return c == '+' || c == '-' || c == '(' || c == ')' || c == '*' || c == '/' || c =='%';
     }
 
     public Operand apply(Operand op1, Operand op2) {
