@@ -52,17 +52,19 @@ public class Operator implements Comparable<Operator> {
         double newOperandValue = 0;
         switch (value) {
             case '+':
-                newOperandValue = op1.getValue() + (op2.getValue());
+                newOperandValue = op1.getValue() + op2.getValue();
                 break;
             case '-':
-                newOperandValue = op1.getValue() - (op2.getValue());
+                newOperandValue = op1.getValue() - op2.getValue();
                 break;
             case '*':
-                newOperandValue = op1.getValue() * (op2.getValue());
+                newOperandValue = op1.getValue() * op2.getValue();
                 break;
             case '/':
-                newOperandValue = op1.getValue() / (op2.getValue());
+                newOperandValue = op1.getValue() / op2.getValue();
                 break;
+            case '%':
+                newOperandValue = op1.getValue() % op2.getValue();
         }
         return new Operand(newOperandValue);
     }
