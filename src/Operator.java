@@ -1,8 +1,7 @@
 import java.lang.Comparable;
 import java.lang.IllegalArgumentException;
-import java.math.BigDecimal;
 
-public class Operator implements Comparable<Operator> {
+class Operator implements Comparable<Operator> {
     private char value;
     private byte priority;
 
@@ -25,9 +24,7 @@ public class Operator implements Comparable<Operator> {
 
     @Override
     public int compareTo(Operator op) {
-        if (this.priority < op.priority) return -1;
-        else if (this.priority > op.priority) return 1;
-        else return 0;
+        return Byte.compare(this.priority, op.priority);
     }
 
     public char getValue() {

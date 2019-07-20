@@ -27,8 +27,7 @@ public class Operand {
             if (s.charAt(i) == '.') cntDot++;
             else if (!(s.charAt(i) >= '0' && s.charAt(i) <= '9')) return false;
         }
-        if (cntDot > 1 || cntDot == 1 && s.length() == 1 || s.length() == 0) return false;
-        return true;
+        return !(cntDot > 1 || cntDot == 1 && s.length() == 1 || s.length() == 0);
     }
 
     // unit tests

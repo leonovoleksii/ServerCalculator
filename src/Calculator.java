@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Stack;
 import java.net.Socket;
 
-public class Calculator implements Runnable {
+class Calculator implements Runnable {
     private static int amount = 0;
     private int id;
     private BufferedWriter writer;
@@ -24,7 +24,7 @@ public class Calculator implements Runnable {
         if (amount < 0) amount = 0;
     }
 
-    public void calculate(String expression) throws IOException {
+    private void calculate(String expression) throws IOException {
         Stack<Operand> operands = new Stack<>();
         expression = removeSpaces(expression);
         if (!checkValidity(expression)) {
@@ -97,7 +97,7 @@ public class Calculator implements Runnable {
     }
 
     // returns true iff the sequence of parentheses in the expression is right
-    private boolean checkParen(String expr) throws IOException {
+    private boolean checkParen(String expr) {
         int cnt = 0;
         for (int i = 0; i < expr.length(); i++) {
             if (expr.charAt(i) == '(') cnt++;

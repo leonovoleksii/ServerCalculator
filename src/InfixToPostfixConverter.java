@@ -1,8 +1,8 @@
 import java.util.Stack;
 import java.util.LinkedList;
 
-public class InfixToPostfixConverter {
-    private String expression;
+class InfixToPostfixConverter {
+    private final String expression;
     private int curInx; // pointer on the character in the expression
     private LinkedList<String> postfix; // linked list with operand and operators in postfix form
 
