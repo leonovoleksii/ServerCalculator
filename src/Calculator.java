@@ -1,20 +1,33 @@
 import java.io.*;
 import java.util.Stack;
+import java.net.Socket;
 
-public class Calculator {
+public class Calculator implements Runnable {
+    private static int amount = 0;
+    private int id;
     private BufferedWriter writer;
+    private BufferedReader reader;
     private InfixToPostfixConverter converter;
+    private Socket clientSocket;
 
     public Calculator(OutputStreamWriter out) {
         writer = new BufferedWriter(out);
+        id = amount++;
+        if (amount < 0) amount = 0;
+    }
+
+    public Calculator(Socket clientSocket) throws IOException {
+        this.clientSocket = clientSocket;
+        this.reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        this.writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+        id = amount++;
+        if (amount < 0) amount = 0;
     }
 
     public void calculate(String expression) throws IOException {
         Stack<Operand> operands = new Stack<>();
         expression = removeSpaces(expression);
         if (!checkValidity(expression)) {
-            writer.write("Incorrect expression\n");
-            writer.flush();
             return;
         }
         converter = new InfixToPostfixConverter(expression);
@@ -111,9 +124,30 @@ public class Calculator {
         return sb.toString();
     }
 
-    // unit testing
-    public static void main(String[] args) throws IOException {
-        Calculator calculator = new Calculator(new OutputStreamWriter(System.out));
-        calculator.calculate("(");
+    public void run() {
+        try {
+            String request;
+            while (true) {
+                request = reader.readLine();
+                // System.out.println(request);
+                System.out.println("Client #" + id + " requested " + request + " to be calculated");
+                if (request.equals("quit")) {
+                    break;
+                }
+                calculate(request);
+                writer.flush();
+                System.out.println("Server calculated the request and returned the result");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Client #" + id + " disconnected");
+        try {
+            clientSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    public int getId() { return id; }
 }
