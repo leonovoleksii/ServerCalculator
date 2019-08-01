@@ -11,8 +11,14 @@ public class Client {
     private static BufferedWriter out;
 
     public static void main(String[] args) {
+        if (args.length != 2) {
+            System.out.println("Usage: java Client 'host ip' 'port'");
+            return;
+        }
+        String host = args[0];
+        int port = Integer.parseInt(args[1]);
         try {
-            socket = new Socket("localhost", 7373);
+            socket = new Socket(host, port);
             reader = new BufferedReader(new InputStreamReader(System.in));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
