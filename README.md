@@ -1,7 +1,7 @@
 # Server Calculator
 It is a client-server calculator written in Java using standard library.</br>
 Clients send their requests to server, server calculates the expression and sends the result to appropriate client.</br>
-For calculation of expressions was used Polish notation.
+For calculation of expressions Polish notation was used.
 ## Prerequisites
 You need to have JDK installed on your machine.
 ## Installation
