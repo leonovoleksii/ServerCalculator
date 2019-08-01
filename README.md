@@ -17,4 +17,4 @@ Now clients can connect to your server. In order to connect to server, you need 
 `java Client 'host ip' 'port'`</br>
 Congratulations! You can send your requests to server!</br>
 ![Screenshot from 2019-08-01 13-52-01](https://user-images.githubusercontent.com/39864247/62287801-8fde8e00-b463-11e9-94cd-fbd24f21d30c.png)
-To stop running client app enter `quit`. And to start running server app enter `^C`.</br>
+To stop running client app enter `quit`. And to stop running server app enter `^C`.</br>
